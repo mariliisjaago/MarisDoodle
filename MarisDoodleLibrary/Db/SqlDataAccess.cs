@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MarisDoodleLibrary.Db
 {
-    public class SqlDataAccess : ISqlDataAccess
+    public class SqlDataAccess : IDataAccess
     {
         private readonly IConfiguration _config;
 

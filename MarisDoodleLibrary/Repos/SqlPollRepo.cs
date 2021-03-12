@@ -1,4 +1,5 @@
 ﻿using MarisDoodleLibrary.Contracts.Db;
+using MarisDoodleLibrary.Contracts.Repos;
 using MarisDoodleLibrary.Db;
 using MarisDoodleLibrary.Models;
 using System.Collections.Generic;
@@ -6,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace MarisDoodleLibrary.Repos
 {
-    public class SqlPollRepo
+    public class SqlPollRepo : IPollRepo
     {
-        private readonly ISqlDataAccess _db;
+        private readonly IDataAccess _db;
         private readonly ConnectionStringData _connectionStringData;
 
-        public SqlPollRepo(ISqlDataAccess db, ConnectionStringData connectionStringData)
+        public SqlPollRepo(IDataAccess db, ConnectionStringData connectionStringData)
         {
             _db = db;
             _connectionStringData = connectionStringData;

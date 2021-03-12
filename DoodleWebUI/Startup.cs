@@ -1,13 +1,14 @@
+using MarisDoodleLibrary.Contracts.Db;
+using MarisDoodleLibrary.Contracts.Repos;
+using MarisDoodleLibrary.Contracts.Routines;
+using MarisDoodleLibrary.Db;
+using MarisDoodleLibrary.Repos;
+using MarisDoodleLibrary.Routines;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DoodleWebUI
 {
@@ -24,6 +25,15 @@ namespace DoodleWebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+
+            services.AddSingleton(new ConnectionStringData
+            {
+                SqlConnectionName = "Development"
+            });
+
+            services.AddScoped<IDataAccess, SqlDataAccess>();
+            services.AddScoped<IPollRepo, SqlPollRepo>();
+            services.AddScoped<IPollRoutine, PollRoutine>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

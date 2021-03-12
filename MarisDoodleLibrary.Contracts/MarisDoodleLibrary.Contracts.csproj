@@ -5,8 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Routines\" />
-    <Folder Include="Repos\" />
+    <ProjectReference Include="..\MarisDoodleLibrary.Models\MarisDoodleLibrary.Models.csproj" />
   </ItemGroup>
 
 </Project>

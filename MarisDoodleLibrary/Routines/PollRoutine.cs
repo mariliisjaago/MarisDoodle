@@ -1,11 +1,12 @@
-﻿using MarisDoodleLibrary.Models;
+﻿using MarisDoodleLibrary.Contracts.Routines;
+using MarisDoodleLibrary.Models;
 using MarisDoodleLibrary.Repos;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MarisDoodleLibrary.Routines
 {
-    public class PollRoutine
+    public class PollRoutine : IPollRoutine
     {
         private readonly SqlPollRepo _pollRepo;
 
