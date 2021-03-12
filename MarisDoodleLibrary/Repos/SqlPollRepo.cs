@@ -25,7 +25,7 @@ namespace MarisDoodleLibrary.Repos
             return _db.Save(sql, new { PollName = poll.PollName, CreatedOn = poll.CreatedOn }, _connectionStringData.SqlConnectionName);
         }
 
-        public async Task<int> AddOptionsToPollAndReturnPollId(int pollId, List<PollOptionModel> pollOptions)
+        public async Task AddOptionsToPoll(int pollId, List<PollOptionModel> pollOptions)
         {
             string sql = "insert into dbo.PollOptions ([Option], PollId, CreatedOn) " +
                 "values (@Option, @PollId, @CreatedOn);";
@@ -36,8 +36,6 @@ namespace MarisDoodleLibrary.Repos
                     new { Option = option.Option, PollId = pollId, CreatedOn = option.CreatedOn },
                     _connectionStringData.SqlConnectionName);
             }
-
-            return pollId;
         }
     }
 }
