@@ -5,7 +5,7 @@
 <br />
 <h4>Add options:</h4>
 
-<form asp-action="AddOptions" method="post">
+<form asp-action="AddOption" method="post">
     <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
     <div class="form-group">
         <label asp-for="NewOption.Option"></label>
@@ -17,10 +17,24 @@
 
 @if (Model.Options.Count > 0)
 {
-    foreach (var pollOption in Model.Options)
-    {
-        <p>@pollOption.Option</p>
-    }
+    <table class="table">
+        <tbody>
+            @foreach (var pollOption in Model.Options)
+            {
+                <tr>
+                    <td>@pollOption.Option</td>
+                    <td>
+                        <form asp-action="DeleteOption" method="post">
+                            <input name="pollId" type="hidden" value="@Model.Poll.Id" />
+                            <input name="optionId" type="hidden" value="@pollOption.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
 }
 
 <form asp-action="Done" method="post">

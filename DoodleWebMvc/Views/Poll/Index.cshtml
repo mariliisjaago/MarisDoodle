@@ -1,13 +1,22 @@
-﻿@model DoodleWebMvc.Models.PollFullModel
+﻿@model MarisDoodleLibrary.Models.PollModel
 
 <h2>Creating a poll</h2>
 
-<form asp-action="GivePollName">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="@Model.Poll.PollName"></label>
-        <input type="text" asp-for="@Model.Poll.PollName" width="500" />
-    </div>
-    <button type="submit" class="btn btn-primary">Next</button>
-</form>
 
+<div style="margin: 2.5em;">
+    <form asp-action="GivePollName">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="PollName"></label>
+            <input type="text" asp-for="PollName" class="form-control" placeholder="e.g. What day do we meet?" />
+            <span asp-validation-for="PollName" class="text-danger"></span>
+        </div>
+        <div style="margin-top: 2.5em;">
+            <button type="submit" class="btn btn-primary">Next</button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

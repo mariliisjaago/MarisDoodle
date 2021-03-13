@@ -20,7 +20,7 @@ namespace DoodleWebMvc.Controllers
 
         public IActionResult Index()
         {
-            PollFullModel model = new PollFullModel();
+            PollModel model = new PollModel();
 
             return View(model);
         }
@@ -35,15 +35,15 @@ namespace DoodleWebMvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GivePollName(PollFullModel pollFullModel)
+        public async Task<IActionResult> GivePollName(PollModel poll)
         {
-            int id = await _pollRoutine.CreateBasicPollAndReturnId(pollFullModel.Poll);
+            int id = await _pollRoutine.CreateBasicPollAndReturnId(poll);
 
             return RedirectToAction("Display", new { id });
         }
 
         [HttpPost]
-        public IActionResult AddOptions(PollFullModel pollFullModel)
+        public IActionResult AddOption(PollFullModel pollFullModel)
         {
             int id = pollFullModel.Poll.Id;
 
@@ -54,6 +54,16 @@ namespace DoodleWebMvc.Controllers
                                               { Option = pollFullModel.NewOption.Option }
                                           }
                                           );
+
+            return RedirectToAction("Display", new { id });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteOption(int pollId, int optionId)
+        {
+            await _pollRoutine.DeleteOption(optionId);
+
+            int id = pollId;
 
             return RedirectToAction("Display", new { id });
         }

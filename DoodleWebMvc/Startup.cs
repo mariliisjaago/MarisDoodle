@@ -36,6 +36,7 @@ namespace DoodleWebMvc
 
             services.AddScoped<IDataAccess, SqlDataAccess>();
             services.AddScoped<IPollRepo, SqlPollRepo>();
+            services.AddScoped<IOptionRepo, SqlOptionRepo>();
             services.AddScoped<IPollRoutine, PollRoutine>();
         }
 
