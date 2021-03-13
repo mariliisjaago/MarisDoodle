@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DoodleDb", "DoodleDb\DoodleDb.sqlproj", "{C2423603-953B-4264-A658-DE162F6BEB73}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarisDoodleLibrary", "MarisDoodleLibrary\MarisDoodleLibrary.csproj", "{C2ABC357-2E88-4953-B79C-3EB7A09C9C0B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarisDoodleLibrary", "MarisDoodleLibrary\MarisDoodleLibrary.csproj", "{C2ABC357-2E88-4953-B79C-3EB7A09C9C0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarisDoodleLibrary.Contracts", "MarisDoodleLibrary.Contracts\MarisDoodleLibrary.Contracts.csproj", "{8B56BF4B-9A71-4B3D-8DFD-3AFED59F0068}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarisDoodleLibrary.Contracts", "MarisDoodleLibrary.Contracts\MarisDoodleLibrary.Contracts.csproj", "{8B56BF4B-9A71-4B3D-8DFD-3AFED59F0068}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarisDoodleLibrary.Models", "MarisDoodleLibrary.Models\MarisDoodleLibrary.Models.csproj", "{1F63606E-B0BC-48BC-A333-F079B7601C59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarisDoodleLibrary.Models", "MarisDoodleLibrary.Models\MarisDoodleLibrary.Models.csproj", "{1F63606E-B0BC-48BC-A333-F079B7601C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoodleWebUI", "DoodleWebUI\DoodleWebUI.csproj", "{474CFBFC-E942-4146-9E59-6BD02EC51248}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoodleWebMvc", "DoodleWebMvc\DoodleWebMvc.csproj", "{59346BF1-F16A-426D-A486-52CC0F0F4362}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,10 +37,10 @@ Global
 		{1F63606E-B0BC-48BC-A333-F079B7601C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F63606E-B0BC-48BC-A333-F079B7601C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F63606E-B0BC-48BC-A333-F079B7601C59}.Release|Any CPU.Build.0 = Release|Any CPU
-		{474CFBFC-E942-4146-9E59-6BD02EC51248}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{474CFBFC-E942-4146-9E59-6BD02EC51248}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{474CFBFC-E942-4146-9E59-6BD02EC51248}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{474CFBFC-E942-4146-9E59-6BD02EC51248}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59346BF1-F16A-426D-A486-52CC0F0F4362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59346BF1-F16A-426D-A486-52CC0F0F4362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59346BF1-F16A-426D-A486-52CC0F0F4362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59346BF1-F16A-426D-A486-52CC0F0F4362}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
