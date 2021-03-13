@@ -9,17 +9,19 @@ namespace MarisDoodleLibrary.Routines
     public class PollRoutine : IPollRoutine
     {
         private readonly IPollRepo _pollRepo;
+        private readonly IOptionRepo _optionRepo;
 
-        public PollRoutine(IPollRepo pollRepo)
+        public PollRoutine(IPollRepo pollRepo, IOptionRepo optionRepo)
         {
             _pollRepo = pollRepo;
+            _optionRepo = optionRepo;
         }
 
         public async Task<int> CreatePollAndReturnId(PollModel poll, List<PollOptionModel> options)
         {
             var pollId = await _pollRepo.CreateBasicPollAndReturnId(poll);
 
-            await _pollRepo.AddOptionsToPoll(pollId, options);
+            await _optionRepo.AddOptionsToPoll(pollId, options);
 
             return pollId;
         }
@@ -33,7 +35,7 @@ namespace MarisDoodleLibrary.Routines
 
         public Task AddOptionsToPoll(int pollId, List<PollOptionModel> pollOptions)
         {
-            return _pollRepo.AddOptionsToPoll(pollId, pollOptions);
+            return _optionRepo.AddOptionsToPoll(pollId, pollOptions);
         }
 
         public Task<PollModel> GetBasicPoll(int id)
@@ -43,7 +45,12 @@ namespace MarisDoodleLibrary.Routines
 
         public Task<List<PollOptionModel>> GetPollOptions(int pollId)
         {
-            return _pollRepo.GetPollOptions(pollId);
+            return _optionRepo.GetPollOptions(pollId);
+        }
+
+        public Task DeleteOption(int optionId)
+        {
+            return _optionRepo.DeleteOptionFromPoll(optionId);
         }
     }
 }
