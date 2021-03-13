@@ -1,0 +1,13 @@
+﻿@model DoodleWebMvc.Models.PollFullModel
+
+<h2>Creating a poll</h2>
+
+<form asp-action="GivePollName">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="@Model.Poll.PollName"></label>
+        <input type="text" asp-for="@Model.Poll.PollName" width="500" />
+    </div>
+    <button type="submit" class="btn btn-primary">Next</button>
+</form>
+

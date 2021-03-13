@@ -3,6 +3,7 @@ using MarisDoodleLibrary.Contracts.Repos;
 using MarisDoodleLibrary.Db;
 using MarisDoodleLibrary.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MarisDoodleLibrary.Repos
@@ -18,12 +19,14 @@ namespace MarisDoodleLibrary.Repos
             _connectionStringData = connectionStringData;
         }
 
-        public Task<int> CreateBasicPollAndReturnId(PollModel poll)
+        public async Task<int> CreateBasicPollAndReturnId(PollModel poll)
         {
-            string sql = "insert into dbo.Polls (PollName, CreatedOn) values (@PollName, @CreatedOn) " +
+            string sql = "insert into dbo.Polls (PollName, CreatedOn) values (@PollName, @CreatedOn); " +
                 "select SCOPE_IDENTITY();";
 
-            return _db.Save(sql, new { PollName = poll.PollName, CreatedOn = poll.CreatedOn }, _connectionStringData.SqlConnectionName);
+            var pollId = await _db.Load<int>(sql, new { PollName = poll.PollName, CreatedOn = poll.CreatedOn }, _connectionStringData.SqlConnectionName);
+
+            return pollId.ToList().FirstOrDefault();
         }
 
         public async Task AddOptionsToPoll(int pollId, List<PollOptionModel> pollOptions)
@@ -37,6 +40,22 @@ namespace MarisDoodleLibrary.Repos
                     new { Option = option.Option, PollId = pollId, CreatedOn = option.CreatedOn },
                     _connectionStringData.SqlConnectionName);
             }
+        }
+
+        public async Task<PollModel> GetBasicPoll(int id)
+        {
+            string sql = "select * from dbo.Polls where Id = @Id;";
+
+            var data = await _db.Load<PollModel>(sql, new { Id = id }, _connectionStringData.SqlConnectionName);
+
+            return data.ToList().FirstOrDefault();
+        }
+
+        public Task<List<PollOptionModel>> GetPollOptions(int pollId)
+        {
+            string sql = "select * from dbo.PollOptions where PollId = @PollId;";
+
+            return _db.Load<PollOptionModel>(sql, new { PollId = pollId }, _connectionStringData.SqlConnectionName);
         }
     }
 }

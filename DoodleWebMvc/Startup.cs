@@ -6,14 +6,9 @@ using MarisDoodleLibrary.Repos;
 using MarisDoodleLibrary.Routines;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DoodleWebMvc
 {
@@ -30,6 +25,9 @@ namespace DoodleWebMvc
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddSession();
+            services.AddMemoryCache();
 
             services.AddSingleton(new ConnectionStringData
             {
@@ -56,6 +54,8 @@ namespace DoodleWebMvc
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseRouting();
 

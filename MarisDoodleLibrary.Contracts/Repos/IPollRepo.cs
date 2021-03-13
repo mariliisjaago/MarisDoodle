@@ -8,5 +8,9 @@ namespace MarisDoodleLibrary.Contracts.Repos
     {
         Task AddOptionsToPoll(int pollId, List<PollOptionModel> pollOptions);
         Task<int> CreateBasicPollAndReturnId(PollModel poll);
+
+        Task<PollModel> GetBasicPoll(int id);
+
+        Task<List<PollOptionModel>> GetPollOptions(int pollId);
     }
 }

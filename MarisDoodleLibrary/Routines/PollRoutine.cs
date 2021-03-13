@@ -23,5 +23,27 @@ namespace MarisDoodleLibrary.Routines
 
             return pollId;
         }
+
+        public async Task<int> CreateBasicPollAndReturnId(PollModel poll)
+        {
+            var pollId = await _pollRepo.CreateBasicPollAndReturnId(poll);
+
+            return pollId;
+        }
+
+        public Task AddOptionsToPoll(int pollId, List<PollOptionModel> pollOptions)
+        {
+            return _pollRepo.AddOptionsToPoll(pollId, pollOptions);
+        }
+
+        public Task<PollModel> GetBasicPoll(int id)
+        {
+            return _pollRepo.GetBasicPoll(id);
+        }
+
+        public Task<List<PollOptionModel>> GetPollOptions(int pollId)
+        {
+            return _pollRepo.GetPollOptions(pollId);
+        }
     }
 }

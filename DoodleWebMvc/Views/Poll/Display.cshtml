@@ -1,0 +1,29 @@
+﻿@model DoodleWebMvc.Models.PollFullModel
+
+
+<h2>@Model.Poll.PollName</h2>
+<br />
+<h4>Add options:</h4>
+
+<form asp-action="AddOptions" method="post">
+    <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
+    <div class="form-group">
+        <label asp-for="NewOption.Option"></label>
+        <input asp-for="NewOption.Option" />
+    </div>
+    <button type="submit" class="btn btn-dark">Add option</button>
+</form>
+
+
+@if (Model.Options.Count > 0)
+{
+    foreach (var pollOption in Model.Options)
+    {
+        <p>@pollOption.Option</p>
+    }
+}
+
+<form asp-action="Done" method="post">
+    <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
+    <button type="submit" class="btn btn-primary">Done creating poll</button>
+</form>
