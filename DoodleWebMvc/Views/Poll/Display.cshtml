@@ -1,43 +1,61 @@
 ﻿@model DoodleWebMvc.Models.PollFullModel
 
 
-<h2>@Model.Poll.PollName</h2>
-<br />
-<h4>Add options:</h4>
+<h2 style="margin-top: 2.5em; color: #23395d">@Model.Poll.PollName</h2>
+
+<p style="margin-top: 2.5em;"><strong>Add options:</strong></p>
 
 <form asp-action="AddOption" method="post">
     <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
     <div class="form-group">
-        <label asp-for="NewOption.Option"></label>
-        <input asp-for="NewOption.Option" />
-    </div>
-    <button type="submit" class="btn btn-dark">Add option</button>
-</form>
-
-
-@if (Model.Options.Count > 0)
-{
-    <table class="table">
-        <tbody>
-            @foreach (var pollOption in Model.Options)
-            {
+        <table>
+            <tbody>
                 <tr>
-                    <td>@pollOption.Option</td>
-                    <td>
-                        <form asp-action="DeleteOption" method="post">
-                            <input name="pollId" type="hidden" value="@Model.Poll.Id" />
-                            <input name="optionId" type="hidden" value="@pollOption.Id" />
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
-                    </td>
+                    <div class="input-group mb-3">
+                        <input type="text" asp-for="NewOption.Option" class="form-control" placeholder="new option" aria-label="Example text with button addon" aria-describedby="button-add" autofocus>
+                        <div class="input-group-append">
+                            <button class="btn btn-dark" type="submit" id="button-add">Add</button>
+                        </div>
+                    </div>
                 </tr>
-            }
-        </tbody>
-    </table>
-
-}
-
-<form asp-action="Done" method="post">
-    <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
-    <button type="submit" class="btn btn-primary">Done creating poll</button>
+            </tbody>
+        </table>
+    </div>
 </form>
+
+<div style="margin-top: 2.5em; margin-bottom: 2.5em;">
+    @if (Model.Options.Count > 0)
+    {
+        <p><strong>All options:</strong></p>
+        <table class="table">
+            <tbody>
+                @foreach (var pollOption in Model.Options)
+                {
+                    <tr>
+                        <td>@pollOption.Option</td>
+                        <td>
+                            <form asp-action="DeleteOption" method="post">
+                                <input name="pollId" type="hidden" value="@Model.Poll.Id" />
+                                <input name="optionId" type="hidden" value="@pollOption.Id" />
+                                <button type="submit" class="btn btn-danger btn-sm float-right">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<div style="margin-top: 2.5em;">
+    <form asp-action="Done" method="post" class="text-center">
+        <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
+        <button type="submit" class="btn btn-success" btn-lg>Done creating poll</button>
+    </form>
+</div>
+
+
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
