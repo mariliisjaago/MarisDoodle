@@ -8,7 +8,7 @@ namespace MarisDoodleLibrary.Models
         public string Option { get; set; }
         public int PollId { get; set; }
         public string VoterName { get; set; }
-        public bool VotedFor { get; set; }
+        public bool VotedFor { get; set; } = false;
         public DateTime VotedOn { get; set; } = DateTime.UtcNow;
     }
 }

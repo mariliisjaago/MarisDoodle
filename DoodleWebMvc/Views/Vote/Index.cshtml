@@ -2,10 +2,31 @@
 
 <h2 style="margin-top: 2.5em; color: #23395d">@Model.Poll.PollName</h2>
 
-<p style="margin-top: 2.5em;"><strong>Vote:</strong></p>
+<p style="margin-top: 2.5em;"><strong>Give your votes:</strong></p>
 
-<p>@Model.Options.First().Option</p>
+<form asp-action="Vote" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <table class="table">
+        @for (int i = 0; i < Model.Options.Count; ++i)
+        {
+            <tr>
+                <td>
+                    @Html.CheckBoxFor(model => model.Options[i].VotedFor)
+                    <label>@Model.Options[i].Option</label>
+                    @Html.HiddenFor(model => model.Options[i].Id)
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="form-group">
+        <label asp-for="VoterName"></label>
+        <input asp-for="VoterName" type="text" class="form-control" placeholder="Your name" />
+        <span asp-validation-for="VoterName" class="text-danger"></span>
+        <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
+    </div>
+    <button type="submit" class="btn btn-dark">Vote</button>
+</form>
 
-
-
-
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
