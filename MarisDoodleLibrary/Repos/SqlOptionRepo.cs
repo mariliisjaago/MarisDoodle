@@ -38,6 +38,7 @@ namespace MarisDoodleLibrary.Repos
             return _db.Load<PollOptionModel>(sql, new { PollId = pollId }, _connectionStringData.SqlConnectionName);
         }
 
+
         public Task DeleteOptionFromPoll(int optionId)
         {
             string sql = "delete from dbo.PollOptions where Id = @Id;";
