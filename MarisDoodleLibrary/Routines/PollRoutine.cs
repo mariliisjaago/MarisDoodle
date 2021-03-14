@@ -43,9 +43,13 @@ namespace MarisDoodleLibrary.Routines
             return _pollRepo.GetBasicPoll(id);
         }
 
-        public Task<List<PollOptionModel>> GetPollOptions(int pollId)
+        public Task<List<PollOptionModel>> GetPollOptionsForDisplay(int pollId)
         {
-            return _optionRepo.GetPollOptions(pollId);
+            return _optionRepo.GetPollOptionsForDisplay(pollId);
+        }
+        public Task<List<PollOptionVotingModel>> GetPollOptionsForVoting(int pollId)
+        {
+            return _optionRepo.GetPollOptionsForVoting(pollId);
         }
 
         public Task DeleteOption(int optionId)

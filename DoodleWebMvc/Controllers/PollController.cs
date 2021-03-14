@@ -29,7 +29,7 @@ namespace DoodleWebMvc.Controllers
         {
             PollFullModel displayModel = new PollFullModel();
             displayModel.Poll = await _pollRoutine.GetBasicPoll(id);
-            displayModel.Options = await _pollRoutine.GetPollOptions(id);
+            displayModel.Options = await _pollRoutine.GetPollOptionsForDisplay(id);
 
             return View(displayModel);
         }
@@ -75,7 +75,7 @@ namespace DoodleWebMvc.Controllers
 
             PollFullModel displayModel = new PollFullModel();
             displayModel.Poll = await _pollRoutine.GetBasicPoll(id);
-            displayModel.Options = await _pollRoutine.GetPollOptions(id);
+            displayModel.Options = await _pollRoutine.GetPollOptionsForDisplay(id);
 
             return View(displayModel);
         }

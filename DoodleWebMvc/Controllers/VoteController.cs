@@ -16,10 +16,10 @@ namespace DoodleWebMvc.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            PollFullModel displayModel = new PollFullModel();
+            PollFullVotingModel displayModel = new PollFullVotingModel();
 
             displayModel.Poll = await _pollRoutine.GetBasicPoll(id);
-            displayModel.Options = await _pollRoutine.GetPollOptions(id);
+            displayModel.Options = await _pollRoutine.GetPollOptionsForVoting(id);
 
             return View(displayModel);
         }

@@ -9,7 +9,8 @@ namespace MarisDoodleLibrary.Contracts.Routines
         Task<int> CreatePollAndReturnId(PollModel poll, List<PollOptionModel> options);
         Task<int> CreateBasicPollAndReturnId(PollModel poll);
         Task<PollModel> GetBasicPoll(int id);
-        Task<List<PollOptionModel>> GetPollOptions(int pollId);
+        Task<List<PollOptionModel>> GetPollOptionsForDisplay(int pollId);
+        Task<List<PollOptionVotingModel>> GetPollOptionsForVoting(int pollId);
         Task AddOptionsToPoll(int pollId, List<PollOptionModel> pollOptions);
         Task DeleteOption(int optionId);
     }

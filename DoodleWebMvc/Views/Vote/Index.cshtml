@@ -1,8 +1,10 @@
-﻿@model DoodleWebMvc.Models.PollFullModel
+﻿@model DoodleWebMvc.Models.PollFullVotingModel
 
 <h2 style="margin-top: 2.5em; color: #23395d">@Model.Poll.PollName</h2>
 
 <p style="margin-top: 2.5em;"><strong>Vote:</strong></p>
+
+<p>@Model.Options.First().Option</p>
 
 
 
