@@ -26,8 +26,6 @@ namespace DoodleWebMvc.Controllers
 
         public IActionResult Vote(PollFullVotingModel pollVotingModel)
         {
-            var temp = pollVotingModel;
-
             int id = pollVotingModel.Poll.Id;
 
             return RedirectToAction("Index", new { id });

@@ -1,7 +1,9 @@
 ﻿using DoodleWebMvc.Models;
 using MarisDoodleLibrary.Contracts.Routines;
 using MarisDoodleLibrary.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -10,12 +12,14 @@ namespace DoodleWebMvc.Controllers
     public class PollController : Controller
     {
         private readonly IPollRoutine _pollRoutine;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         //private string optionName;
 
-        public PollController(IPollRoutine pollRoutine)
+        public PollController(IPollRoutine pollRoutine, IHttpContextAccessor httpContextAccessor)
         {
             _pollRoutine = pollRoutine;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IActionResult Index()
@@ -51,7 +55,9 @@ namespace DoodleWebMvc.Controllers
                                           new List<PollOptionModel>
                                           {
                                               new PollOptionModel
-                                              { Option = pollFullModel.NewOption.Option }
+                                              {
+                                                  Option = pollFullModel.NewOption.Option
+                                              }
                                           }
                                           );
 
@@ -71,13 +77,29 @@ namespace DoodleWebMvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Done(PollFullModel pollFullModel)
         {
+
+
             int id = pollFullModel.Poll.Id;
 
             PollFullModel displayModel = new PollFullModel();
             displayModel.Poll = await _pollRoutine.GetBasicPoll(id);
             displayModel.Options = await _pollRoutine.GetPollOptionsForDisplay(id);
 
+            //displayModel.VotingUrl = GetVotingUrl();
+            var temp = Url.Action(nameof(VoteController.Index), nameof(VoteController), new { id = id });
+            
+            //.HttpContext.Request.PathBase;
+
             return View(displayModel);
         }
+
+        //    private string GetVotingUrl()
+        //    {
+        //        var url = Url.Action("GetOptions", nameof(VoteController), new { id = "1" }).ToString();
+
+        //        var url2 = ControllerContext.RouteData.Values;
+
+        //        return url2;
+        //    }
     }
 }

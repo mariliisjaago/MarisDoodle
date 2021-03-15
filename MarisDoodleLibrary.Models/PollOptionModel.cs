@@ -9,7 +9,7 @@ namespace MarisDoodleLibrary.Models
         public int Id { get; set; }
 
         [Required]
-        [MinLength(3, ErrorMessage = "Must have at least 3 characters")]
+        [MinLength(1, ErrorMessage = "Must have at least 3 characters")]
         [MaxLength(100, ErrorMessage = "Must not exceed 100 characters")]
         [DisplayName("Poll option")]
         public string Option { get; set; }

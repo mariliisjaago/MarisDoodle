@@ -26,6 +26,8 @@ namespace DoodleWebMvc
         {
             services.AddControllersWithViews();
 
+            services.AddHttpContextAccessor();
+
             services.AddSession();
             services.AddMemoryCache();
 

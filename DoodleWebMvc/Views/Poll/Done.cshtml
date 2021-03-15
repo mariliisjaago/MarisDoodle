@@ -1,11 +1,25 @@
 ﻿@model DoodleWebMvc.Models.PollFullModel
 
-<h4>Created your poll: </h4>
-<p>@Model.Poll.Id</p>
+<h2 style="margin-top: 1.0em;">Created poll: @Model.Poll.PollName</h2>
+<h4 style="margin-top: 1.5em;">With options:</h4>
 
-<p>Share this link with others to vote: </p>
+<table class="table">
+    <tbody>
+        @foreach (var option in Model.Options)
+        {
+            <tr>
+                <td>
+                    @option.Option
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-@Html.ActionLink("link", "Index", "Vote", new { id = Model.Poll.Id }, new { @class = "btn btn-dark btn-lg" })
+<h4 style="margin-top: 1.0em;">Share this link with others to vote:</h4>
+
+<input type="text" value="@Model.VotingUrl" width="600" class="form-control" />
+
 
 
 
