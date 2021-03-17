@@ -42,6 +42,8 @@ namespace DoodleWebMvc
             services.AddScoped<IPollRepo, SqlPollRepo>();
             services.AddScoped<IOptionRepo, SqlOptionRepo>();
             services.AddScoped<IPollRoutine, PollRoutine>();
+            services.AddScoped<IVoteRepo, SqlVoteRepo>();
+            services.AddScoped<IVotingRoutine, VotingRoutine>();
 
             services.AddScoped<IUrlGenerator, UrlGenerator>();
             services.AddScoped<IModelPopulator, ModelPopulator>();
