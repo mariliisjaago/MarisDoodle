@@ -84,7 +84,7 @@ namespace DoodleWebMvc.Controllers
 
             PollFullModel displayModel = await _modelPopulator.PopulatePollAndOptionsForDisplay(id);
 
-            displayModel.VotingUrl = _urlGenerator.GetVotingPageUrl(id);
+            displayModel.VotingUrl = _urlGenerator.GetVotingPageUrl(id, Url, _httpContextAccessor);
 
             return View(displayModel);
         }

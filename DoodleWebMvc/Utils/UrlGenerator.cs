@@ -1,31 +1,25 @@
 ﻿using DoodleWebMvc.Controllers;
+using DoodleWebMvc.Utils.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DoodleWebMvc.Utils
 {
     public class UrlGenerator : IUrlGenerator
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IUrlHelper _urlHelper;
 
-        public UrlGenerator(IHttpContextAccessor httpContextAccessor, IUrlHelper urlHelper)
+        public UrlGenerator()
         {
-            _httpContextAccessor = httpContextAccessor;
-            _urlHelper = urlHelper;
+
         }
 
-        public string GetVotingPageUrl(int id)
+        public string GetVotingPageUrl(int id, IUrlHelper urlHelper, IHttpContextAccessor httpContextAccessor)
         {
-            string https = _httpContextAccessor.HttpContext.Request.Scheme;
+            string https = httpContextAccessor.HttpContext.Request.Scheme;
 
-            string hostAndPort = _httpContextAccessor.HttpContext.Request.Host.Value;
+            string hostAndPort = httpContextAccessor.HttpContext.Request.Host.Value;
 
-            string controllerAction = _urlHelper.Action(nameof(VoteController.Index), nameof(VoteController), new { id = id }).ToString().Replace("Controller", "");
+            string controllerAction = urlHelper.Action(nameof(VoteController.Index), nameof(VoteController), new { id = id }).ToString().Replace("Controller", "");
 
             string output = CombineUrlParts(https, hostAndPort, controllerAction);
 
