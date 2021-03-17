@@ -1,4 +1,5 @@
 ﻿using DoodleWebMvc.Models;
+using DoodleWebMvc.Utils.Contracts;
 using MarisDoodleLibrary.Contracts.Routines;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -8,18 +9,17 @@ namespace DoodleWebMvc.Controllers
     public class VoteController : Controller
     {
         private readonly IPollRoutine _pollRoutine;
+        private readonly IModelPopulator _modelPopulator;
 
-        public VoteController(IPollRoutine pollRoutine)
+        public VoteController(IPollRoutine pollRoutine, IModelPopulator modelPopulator)
         {
             _pollRoutine = pollRoutine;
+            _modelPopulator = modelPopulator;
         }
 
         public async Task<IActionResult> Index(int id)
         {
-            PollFullVotingModel displayModel = new PollFullVotingModel();
-
-            displayModel.Poll = await _pollRoutine.GetBasicPoll(id);
-            displayModel.Options = await _pollRoutine.GetPollOptionsForVoting(id);
+            PollFullVotingModel displayModel = await _modelPopulator.PopulatePollAndOptionsForVoting(id);
 
             return View(displayModel);
         }
