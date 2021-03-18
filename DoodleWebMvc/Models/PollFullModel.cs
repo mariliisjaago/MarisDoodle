@@ -8,6 +8,7 @@ namespace DoodleWebMvc.Models
         public PollModel Poll { get; set; }
 
         public PollOptionModel NewOption { get; set; }
+        public string VotingUrl { get; set; }
         public List<PollOptionModel> Options { get; set; } = new List<PollOptionModel>();
     }
 }

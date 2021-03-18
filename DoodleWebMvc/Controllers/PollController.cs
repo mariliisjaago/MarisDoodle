@@ -1,6 +1,8 @@
 ﻿using DoodleWebMvc.Models;
+using DoodleWebMvc.Utils.Contracts;
 using MarisDoodleLibrary.Contracts.Routines;
 using MarisDoodleLibrary.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,12 +12,19 @@ namespace DoodleWebMvc.Controllers
     public class PollController : Controller
     {
         private readonly IPollRoutine _pollRoutine;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IModelPopulator _modelPopulator;
+        private readonly IUrlGenerator _urlGenerator;
 
         //private string optionName;
 
-        public PollController(IPollRoutine pollRoutine)
+        public PollController(IPollRoutine pollRoutine, IHttpContextAccessor httpContextAccessor,
+                                IModelPopulator modelPopulator, IUrlGenerator urlGenerator)
         {
             _pollRoutine = pollRoutine;
+            _httpContextAccessor = httpContextAccessor;
+            _modelPopulator = modelPopulator;
+            _urlGenerator = urlGenerator;
         }
 
         public IActionResult Index()
@@ -27,9 +36,7 @@ namespace DoodleWebMvc.Controllers
 
         public async Task<IActionResult> Display(int id)
         {
-            PollFullModel displayModel = new PollFullModel();
-            displayModel.Poll = await _pollRoutine.GetBasicPoll(id);
-            displayModel.Options = await _pollRoutine.GetPollOptions(id);
+            PollFullModel displayModel = await _modelPopulator.PopulatePollAndOptionsForDisplay(id);
 
             return View(displayModel);
         }
@@ -51,7 +58,9 @@ namespace DoodleWebMvc.Controllers
                                           new List<PollOptionModel>
                                           {
                                               new PollOptionModel
-                                              { Option = pollFullModel.NewOption.Option }
+                                              {
+                                                  Option = pollFullModel.NewOption.Option
+                                              }
                                           }
                                           );
 
@@ -73,11 +82,12 @@ namespace DoodleWebMvc.Controllers
         {
             int id = pollFullModel.Poll.Id;
 
-            PollFullModel displayModel = new PollFullModel();
-            displayModel.Poll = await _pollRoutine.GetBasicPoll(id);
-            displayModel.Options = await _pollRoutine.GetPollOptions(id);
+            PollFullModel displayModel = await _modelPopulator.PopulatePollAndOptionsForDisplay(id);
+
+            displayModel.VotingUrl = _urlGenerator.GetVotingPageUrl(id, Url, _httpContextAccessor);
 
             return View(displayModel);
         }
+
     }
 }

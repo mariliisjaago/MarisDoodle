@@ -1,0 +1,34 @@
+﻿@model DoodleWebMvc.Models.PollFullVotingModel
+
+<h2 style="margin-top: 2em; color: #23395d">Poll: @Model.Poll.PollName</h2>
+
+<p style="margin-top: 2.5em;"><strong>Choose options</strong></p>
+
+<form asp-action="Vote" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <table class="table">
+        @for (int i = 0; i < Model.Options.Count; ++i)
+        {
+            <tr>
+                <td>
+                    @Html.CheckBoxFor(model => model.Options[i].VotedFor)
+                    <label>@Model.Options[i].Option</label>
+                    @Html.HiddenFor(model => model.Options[i].Id)
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="form-group">
+        <label asp-for="VoterName"></label>
+        <input asp-for="VoterName" type="text" class="form-control" placeholder="Your name" />
+        <span asp-validation-for="VoterName" class="text-danger"></span>
+        <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
+    </div>
+    <div class="text-center">
+        <button type="submit" class="btn btn-dark btn-lg" style="margin-top: 0.5em;">Vote</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

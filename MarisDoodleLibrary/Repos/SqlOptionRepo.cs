@@ -31,11 +31,18 @@ namespace MarisDoodleLibrary.Repos
             }
         }
 
-        public Task<List<PollOptionModel>> GetPollOptions(int pollId)
+        public Task<List<PollOptionModel>> GetPollOptionsForDisplay(int pollId)
         {
             string sql = "select * from dbo.PollOptions where PollId = @PollId;";
 
             return _db.Load<PollOptionModel>(sql, new { PollId = pollId }, _connectionStringData.SqlConnectionName);
+        }
+
+        public Task<List<PollOptionVotingModel>> GetPollOptionsForVoting(int pollId)
+        {
+            string sql = "select [Id], [Option], [PollId] from dbo.PollOptions where PollId = @PollId;";
+
+            return _db.Load<PollOptionVotingModel>(sql, new { PollId = pollId }, _connectionStringData.SqlConnectionName);
         }
 
         public Task DeleteOptionFromPoll(int optionId)
@@ -44,5 +51,7 @@ namespace MarisDoodleLibrary.Repos
 
             return _db.Save(sql, new { Id = optionId }, _connectionStringData.SqlConnectionName);
         }
+
+
     }
 }

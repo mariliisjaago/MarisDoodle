@@ -1,3 +1,5 @@
+using DoodleWebMvc.Utils;
+using DoodleWebMvc.Utils.Contracts;
 using MarisDoodleLibrary.Contracts.Db;
 using MarisDoodleLibrary.Contracts.Repos;
 using MarisDoodleLibrary.Contracts.Routines;
@@ -26,6 +28,8 @@ namespace DoodleWebMvc
         {
             services.AddControllersWithViews();
 
+            services.AddHttpContextAccessor();
+
             services.AddSession();
             services.AddMemoryCache();
 
@@ -38,6 +42,11 @@ namespace DoodleWebMvc
             services.AddScoped<IPollRepo, SqlPollRepo>();
             services.AddScoped<IOptionRepo, SqlOptionRepo>();
             services.AddScoped<IPollRoutine, PollRoutine>();
+            services.AddScoped<IVoteRepo, SqlVoteRepo>();
+            services.AddScoped<IVotingRoutine, VotingRoutine>();
+
+            services.AddScoped<IUrlGenerator, UrlGenerator>();
+            services.AddScoped<IModelPopulator, ModelPopulator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
