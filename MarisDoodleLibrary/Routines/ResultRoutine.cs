@@ -1,7 +1,6 @@
 ﻿using MarisDoodleLibrary.Contracts.Repos;
 using MarisDoodleLibrary.Contracts.Routines;
 using MarisDoodleLibrary.Models;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -27,8 +26,6 @@ namespace MarisDoodleLibrary.Routines
             pollResults = await GetPollBasicInfoAndAddToModel(pollId, pollResults);
 
             pollResults = await GetOptionsAndVotesFromDatabaseAndAddToModel(pollId, pollResults);
-
-            // calculate stufF?
 
             return pollResults;
         }
