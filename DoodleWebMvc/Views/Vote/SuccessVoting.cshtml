@@ -1,7 +1,13 @@
-﻿@model DoodleWebMvc.Models.PollFullModel
+﻿@model DoodleWebMvc.Models.PollFlexibleModel
 
 <h4>Voting was successful</h4>
 
 <p>Voted on poll: @Model.Poll.PollName</p>
+
+<h4 style="margin-top: 1.0em;">Save the link for accessing poll results:</h4>
+
+<input type="text" value="@Model.RedirectingUrl" width="600" class="form-control" style="margin-top: 1em;"/>
+
+<a href = "@Model.RedirectingUrl" class="btn btn-dark" style="margin-top: 1.5em;">See poll results</a>
 
 

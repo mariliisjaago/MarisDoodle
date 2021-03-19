@@ -28,5 +28,12 @@ namespace MarisDoodleLibrary.Repos
             }
         }
 
+        public Task<List<VoteModel>> GetVotesByOptionId(int optionId)
+        {
+            string sql = "select * from dbo.Votes where OptionId = @OptionId;";
+
+            return _db.Load<VoteModel>(sql, new { OptionId = optionId }, _connectionStringData.SqlConnectionName);
+        }
+
     }
 }

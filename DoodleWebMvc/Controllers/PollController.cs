@@ -36,7 +36,7 @@ namespace DoodleWebMvc.Controllers
 
         public async Task<IActionResult> Display(int id)
         {
-            PollFullModel displayModel = await _modelPopulator.PopulatePollAndOptionsForDisplay(id);
+            PollFlexibleModel displayModel = await _modelPopulator.PopulatePollAndOptionsForDisplay(id);
 
             return View(displayModel);
         }
@@ -50,19 +50,20 @@ namespace DoodleWebMvc.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddOption(PollFullModel pollFullModel)
+        public IActionResult AddOption(PollFlexibleModel pollFullModel)
         {
             int id = pollFullModel.Poll.Id;
 
-            _pollRoutine.AddOptionsToPoll(id,
-                                          new List<PollOptionModel>
-                                          {
-                                              new PollOptionModel
-                                              {
-                                                  Option = pollFullModel.NewOption.Option
-                                              }
-                                          }
-                                          );
+            _pollRoutine.AddOptionsToPoll(
+                id,
+                new List<PollOptionModel>
+                {
+                    new PollOptionModel
+                    {
+                        Option = pollFullModel.NewOption.Option
+                    }
+                }
+            );
 
             return RedirectToAction("Display", new { id });
         }
@@ -78,13 +79,13 @@ namespace DoodleWebMvc.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Done(PollFullModel pollFullModel)
+        public async Task<IActionResult> Done(PollFlexibleModel pollFullModel)
         {
             int id = pollFullModel.Poll.Id;
 
-            PollFullModel displayModel = await _modelPopulator.PopulatePollAndOptionsForDisplay(id);
+            PollFlexibleModel displayModel = await _modelPopulator.PopulatePollAndOptionsForDisplay(id);
 
-            displayModel.VotingUrl = _urlGenerator.GetVotingPageUrl(id, Url, _httpContextAccessor);
+            displayModel.RedirectingUrl = _urlGenerator.GetVotingPageUrl(id, Url, _httpContextAccessor);
 
             return View(displayModel);
         }

@@ -1,4 +1,4 @@
-﻿@model DoodleWebMvc.Models.PollFullModel
+﻿@model DoodleWebMvc.Models.PollFlexibleModel
 
 <h2 style="margin-top: 1.0em;">Created poll: @Model.Poll.PollName</h2>
 <h4 style="margin-top: 1.5em;">With options:</h4>
@@ -18,7 +18,7 @@
 
 <h4 style="margin-top: 1.0em;">Share this link with others to vote:</h4>
 
-<input type="text" value="@Model.VotingUrl" width="600" class="form-control" />
+<input type="text" value="@Model.RedirectingUrl" width="600" class="form-control" />
 
 
 

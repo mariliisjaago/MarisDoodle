@@ -16,27 +16,27 @@ namespace DoodleWebMvc.Utils
             _pollRoutine = pollRoutine;
         }
 
-        public async Task<PollFullModel> PopulatePollAndOptionsForDisplay(int pollId)
+        public async Task<PollFlexibleModel> PopulatePollAndOptionsForDisplay(int pollId)
         {
-            PollFullModel model = new PollFullModel();
+            PollFlexibleModel model = new PollFlexibleModel();
             model.Poll = await _pollRoutine.GetBasicPoll(pollId);
             model.Options = await _pollRoutine.GetPollOptionsForDisplay(pollId);
 
             return model;
         }
 
-        public async Task<PollFullVotingModel> PopulatePollAndOptionsForVoting(int pollId)
+        public async Task<PollVotingModel> PopulatePollAndOptionsForVoting(int pollId)
         {
-            PollFullVotingModel model = new PollFullVotingModel();
+            PollVotingModel model = new PollVotingModel();
             model.Poll = await _pollRoutine.GetBasicPoll(pollId);
             model.Options = await _pollRoutine.GetPollOptionsForVoting(pollId);
 
             return model;
         }
 
-        public async Task<PollFullModel> PopulatePollName(int id)
+        public async Task<PollFlexibleModel> PopulatePollName(int id)
         {
-            PollFullModel model = new PollFullModel();
+            PollFlexibleModel model = new PollFlexibleModel();
 
             model.Poll = await _pollRoutine.GetBasicPoll(id);
 

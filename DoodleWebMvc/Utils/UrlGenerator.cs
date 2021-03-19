@@ -26,6 +26,19 @@ namespace DoodleWebMvc.Utils
             return output;
         }
 
+        public string GetResultsPageUrl(int id, IUrlHelper urlHelper, IHttpContextAccessor httpContextAccessor)
+        {
+            string https = httpContextAccessor.HttpContext.Request.Scheme;
+
+            string hostAndPort = httpContextAccessor.HttpContext.Request.Host.Value;
+
+            string controllerAction = urlHelper.Action(nameof(ResultController.Index), nameof(ResultController), new { id = id }).ToString().Replace("Controller", "");
+
+            string output = CombineUrlParts(https, hostAndPort, controllerAction);
+
+            return output;
+        }
+
         private string CombineUrlParts(string https, string hostAndPort, string controllerAction)
         {
             return $@"{ https }://{ hostAndPort }{ controllerAction }";

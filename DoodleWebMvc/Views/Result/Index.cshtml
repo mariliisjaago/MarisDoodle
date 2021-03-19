@@ -1,0 +1,33 @@
+﻿@model DoodleWebMvc.Models.PollResultsForDisplay
+
+@if (Model.PollResults.Poll.Id == 0)
+{
+    <h2 style="margin-top: 1em;">Error</h2>
+    <p>Sorry, could not find that record. Make sure you had the right link.</p>
+}
+else
+{
+    <h2 style="margin-top: 1em; color: #0B76CC">@Model.PollResults.Poll.PollName</h2>
+    <h4 style="margin-top: 1.5em;">Voting results</h4>
+
+    <table class="table" style="margin-top: 1em;">
+        <thead>
+            <tr>
+                <td><strong>Option</strong></td>
+                <td><strong>Votes</strong></td>
+                <td><strong>Voters</strong></td>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.PollResults.Options.Count; i++)
+            {
+                <tr>
+                    <td>@Model.PollResults.Options[i].Option.Option</td>
+                    <td>@Model.PollResults.Options[i].Votes.Count</td>
+                    <td>@Model.VoterNamesPerOption[i]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

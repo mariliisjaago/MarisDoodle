@@ -39,11 +39,14 @@ namespace DoodleWebMvc
             });
 
             services.AddScoped<IDataAccess, SqlDataAccess>();
+
             services.AddScoped<IPollRepo, SqlPollRepo>();
             services.AddScoped<IOptionRepo, SqlOptionRepo>();
-            services.AddScoped<IPollRoutine, PollRoutine>();
             services.AddScoped<IVoteRepo, SqlVoteRepo>();
+
+            services.AddScoped<IPollRoutine, PollRoutine>();
             services.AddScoped<IVotingRoutine, VotingRoutine>();
+            services.AddScoped<IResultRoutine, ResultRoutine>();
 
             services.AddScoped<IUrlGenerator, UrlGenerator>();
             services.AddScoped<IModelPopulator, ModelPopulator>();

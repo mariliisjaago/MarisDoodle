@@ -3,6 +3,7 @@ using MarisDoodleLibrary.Contracts.Repos;
 using MarisDoodleLibrary.Db;
 using MarisDoodleLibrary.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MarisDoodleLibrary.Repos
@@ -29,6 +30,15 @@ namespace MarisDoodleLibrary.Repos
                     new { Option = option.Option, PollId = pollId, CreatedOn = option.CreatedOn },
                     _connectionStringData.SqlConnectionName);
             }
+        }
+
+        public async Task<PollOptionModel> GetOptionById(int optionId)
+        {
+            string sql = "select * from dbo.PollOptions where Id = @Id;";
+
+            var option = await _db.Load<PollOptionModel>(sql, new { Id = optionId }, _connectionStringData.SqlConnectionName);
+
+            return option.FirstOrDefault();
         }
 
         public Task<List<PollOptionModel>> GetPollOptionsForDisplay(int pollId)
