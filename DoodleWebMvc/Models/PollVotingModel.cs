@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DoodleWebMvc.Models
 {
-    public class PollFullVotingModel
+    public class PollVotingModel
     {
         public PollModel Poll { get; set; }
         [Required]

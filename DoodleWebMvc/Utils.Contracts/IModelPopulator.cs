@@ -7,9 +7,9 @@ namespace DoodleWebMvc.Utils.Contracts
 {
     public interface IModelPopulator
     {
-        Task<PollFullModel> PopulatePollAndOptionsForDisplay(int pollId);
-        Task<PollFullVotingModel> PopulatePollAndOptionsForVoting(int pollId);
+        Task<PollFlexibleModel> PopulatePollAndOptionsForDisplay(int pollId);
+        Task<PollVotingModel> PopulatePollAndOptionsForVoting(int pollId);
         List<VoteModel> TransformRawOptionDataToVotes(string voterName, List<PollOptionVotingModel> options);
-        Task<PollFullModel> PopulatePollName(int id);
+        Task<PollFlexibleModel> PopulatePollName(int id);
     }
 }

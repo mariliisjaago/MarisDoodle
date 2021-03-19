@@ -2,6 +2,7 @@
 using DoodleWebMvc.Utils.Contracts;
 using MarisDoodleLibrary.Contracts.Routines;
 using MarisDoodleLibrary.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,22 +14,27 @@ namespace DoodleWebMvc.Controllers
         private readonly IPollRoutine _pollRoutine;
         private readonly IVotingRoutine _votingRoutine;
         private readonly IModelPopulator _modelPopulator;
+        private readonly IUrlGenerator _urlGenerator;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public VoteController(IPollRoutine pollRoutine, IVotingRoutine votingRoutine, IModelPopulator modelPopulator)
+        public VoteController(IPollRoutine pollRoutine, IVotingRoutine votingRoutine,
+                                IModelPopulator modelPopulator, IUrlGenerator urlGenerator, IHttpContextAccessor httpContextAccessor)
         {
             _pollRoutine = pollRoutine;
             _votingRoutine = votingRoutine;
             _modelPopulator = modelPopulator;
+            _urlGenerator = urlGenerator;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IActionResult> Index(int id)
         {
-            PollFullVotingModel displayModel = await _modelPopulator.PopulatePollAndOptionsForVoting(id);
+            PollVotingModel displayModel = await _modelPopulator.PopulatePollAndOptionsForVoting(id);
 
             return View(displayModel);
         }
 
-        public async Task<IActionResult> Vote(PollFullVotingModel pollVotingModel)
+        public async Task<IActionResult> Vote(PollVotingModel pollVotingModel)
         {
             int id = pollVotingModel.Poll.Id;
 
@@ -53,7 +59,9 @@ namespace DoodleWebMvc.Controllers
 
         public async Task<IActionResult> SuccessVoting(int id)
         {
-            PollFullModel displayModel = await _modelPopulator.PopulatePollName(id);
+            PollFlexibleModel displayModel = await _modelPopulator.PopulatePollName(id);
+
+            displayModel.RedirectingUrl = _urlGenerator.GetResultsPageUrl(id, Url, _httpContextAccessor);
 
             return View(displayModel);
         }
