@@ -35,7 +35,7 @@ namespace DoodleWebMvc
 
             services.AddSingleton(new ConnectionStringData
             {
-                SqlConnectionName = "Development"
+                SqlConnectionName = "Production"
             });
 
             services.AddScoped<IDataAccess, SqlDataAccess>();
