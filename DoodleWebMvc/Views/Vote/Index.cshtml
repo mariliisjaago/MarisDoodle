@@ -23,6 +23,7 @@
         <input asp-for="VoterName" type="text" class="form-control" placeholder="Your name" />
         <span asp-validation-for="VoterName" class="text-danger"></span>
         <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
+        <input type="hidden" asp-for="Poll.PollName" value="@Model.Poll.PollName" />
     </div>
     <div class="text-center">
         <button type="submit" class="btn btn-dark btn-lg" style="margin-top: 0.5em;">Vote</button>

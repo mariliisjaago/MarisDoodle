@@ -4,6 +4,7 @@ using MarisDoodleLibrary.Contracts.Routines;
 using MarisDoodleLibrary.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -44,28 +45,64 @@ namespace DoodleWebMvc.Controllers
         [HttpPost]
         public async Task<IActionResult> GivePollName(PollModel poll)
         {
-            int id = await _pollRoutine.CreateBasicPollAndReturnId(poll);
+            if (ModelState.IsValid == true)
+            {
+                int id = await _pollRoutine.CreateBasicPollAndReturnId(poll);
+
+                return RedirectToAction("Display", new { id });
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddOption(PollFlexibleModel pollFlexibleModel)
+        {
+            int id = pollFlexibleModel.Poll.Id;
+
+            if (ModelState.IsValid == true)
+            {
+                bool haveRoomForNewOptions = await CheckForAvailableOptionSpace(id);
+
+                if (haveRoomForNewOptions == true)
+                {
+                    await AddOneOptionToPoll(id, pollFlexibleModel.NewOption);
+                }
+
+                return RedirectToAction("Display", new { id });
+            }
 
             return RedirectToAction("Display", new { id });
         }
 
-        [HttpPost]
-        public IActionResult AddOption(PollFlexibleModel pollFullModel)
+        private Task AddOneOptionToPoll(int pollId, PollOptionModel newOption)
         {
-            int id = pollFullModel.Poll.Id;
-
             _pollRoutine.AddOptionsToPoll(
-                id,
-                new List<PollOptionModel>
-                {
-                    new PollOptionModel
-                    {
-                        Option = pollFullModel.NewOption.Option
-                    }
-                }
-            );
+                            pollId,
+                            new List<PollOptionModel>
+                            {
+                                new PollOptionModel
+                                {
+                                    Option = newOption.Option
+                                }
+                            }
+                    );
 
-            return RedirectToAction("Display", new { id });
+            return Task.CompletedTask;
+        }
+
+        private async Task<bool> CheckForAvailableOptionSpace(int id)
+        {
+            var options = await _pollRoutine.GetPollOptionsForDisplay(id);
+
+            if (options.Count < 20)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         [HttpPost]
