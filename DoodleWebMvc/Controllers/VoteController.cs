@@ -38,23 +38,32 @@ namespace DoodleWebMvc.Controllers
         {
             int id = pollVotingModel.Poll.Id;
 
-            List<VoteModel> votes = _modelPopulator.TransformRawOptionDataToVotes(pollVotingModel.VoterName, pollVotingModel.Options);
-
-            if (votes.Count == 0)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("ErrorVoting", new { id });
-            }
-            else
-            {
-                await _votingRoutine.SaveVotes(votes);
+                List<VoteModel> votes = _modelPopulator.TransformRawOptionDataToVotes(pollVotingModel.VoterName, pollVotingModel.Options);
 
-                return RedirectToAction("SuccessVoting", new { id });
+                if (votes.Count == 0)
+                {
+                    return RedirectToAction("ErrorVoting", new { id });
+                }
+                else
+                {
+                    await _votingRoutine.SaveVotes(votes);
+
+                    return RedirectToAction("SuccessVoting", new { id });
+                }
             }
+
+            return RedirectToAction("Index", new { id });
         }
 
-        public IActionResult ErrorVoting(int id)
+        public async Task<IActionResult> ErrorVoting(int id)
         {
-            return View();
+            PollFlexibleModel displayModel = await _modelPopulator.PopulatePollName(id);
+
+            displayModel.RedirectingUrl = _urlGenerator.GetVotingPageUrl(id, Url, _httpContextAccessor);
+
+            return View(displayModel);
         }
 
         public async Task<IActionResult> SuccessVoting(int id)

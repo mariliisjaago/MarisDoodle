@@ -7,6 +7,7 @@
 
 <form asp-action="AddOption" method="post">
     <input type="hidden" asp-for="Poll.Id" value="@Model.Poll.Id" />
+    <input type="hidden" asp-for="Poll.PollName" value="@Model.Poll.PollName" />
     <div class="form-group">
         <table>
             <tbody>
