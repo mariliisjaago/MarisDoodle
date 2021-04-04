@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarisDoodleLibrary.Contract
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarisDoodleLibrary.Models", "MarisDoodleLibrary.Models\MarisDoodleLibrary.Models.csproj", "{1F63606E-B0BC-48BC-A333-F079B7601C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoodleWebMvc", "DoodleWebMvc\DoodleWebMvc.csproj", "{59346BF1-F16A-426D-A486-52CC0F0F4362}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DoodleWebMvc", "DoodleWebMvc\DoodleWebMvc.csproj", "{59346BF1-F16A-426D-A486-52CC0F0F4362}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarisDoodleLibrary.Tests", "MarisDoodleLibrary.Tests\MarisDoodleLibrary.Tests.csproj", "{3122C4EE-798F-498C-A65F-8CC89E05292C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{59346BF1-F16A-426D-A486-52CC0F0F4362}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59346BF1-F16A-426D-A486-52CC0F0F4362}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59346BF1-F16A-426D-A486-52CC0F0F4362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3122C4EE-798F-498C-A65F-8CC89E05292C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3122C4EE-798F-498C-A65F-8CC89E05292C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3122C4EE-798F-498C-A65F-8CC89E05292C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3122C4EE-798F-498C-A65F-8CC89E05292C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
